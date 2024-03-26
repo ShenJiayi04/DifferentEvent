@@ -1,8 +1,17 @@
 public class MusicConcertEvent {
-    private boolean merchandiseRequired;
-    private double merchandiseCost;
+    public boolean merchandiseRequired;
+    public double merchandiseCost;
+    public String eventID;
+    public String eventName;
+    public String eventLocation;
+    public String eventPointOfContact;
+    private CalculateEventCostClass calculateEventCostObject;
 
-    public MusicConcertEvent(boolean merchandiseRequired, double merchandiseCost) {
+
+
+    public MusicConcertEvent(String eventID,String eventName,String eventLocation,String pointOfContact,double eventCost, int totalParticipants,int totalEventDays, boolean merchandiseRequired, double merchandiseCost) {
+        //super(eventID,eventName,eventLocation,pointOfContact,eventCost,totalParticipants,totalEventDays);
+        this.calculateEventCostObject = new CalculateEventCostClass();
         this.merchandiseRequired = merchandiseRequired;
         this.merchandiseCost = merchandiseCost;
     }
@@ -23,21 +32,47 @@ public class MusicConcertEvent {
         this.merchandiseCost = merchandiseCost;
     }
 
-    public double calculateEventCost() {
-        double totalCost = 0.0;
+    public String getEventName(){
+        return eventName;
+    }
+    
+    public void setEventName(String eventName){
+        this.eventName=eventName;
+    }
+    
+    public String getEventID(){
+        return eventID;
+    }
+    
+    public void setEventID(String eventID){
+        this.eventID=eventID;
+    }
+    
+    public String getEventLocation(){
+        return eventLocation;
+    }
+    
+    public void setEventLocation(String eventLocation){
+        this.eventLocation=eventLocation;
+    }
+    
+    public String getEventPointOfContact(){
+        return eventPointOfContact;
+    }
+    
+    public void setEventPointOfContact(String eventPointOfContact){
+        this.eventPointOfContact=eventPointOfContact;
+    }
 
-        if (merchandiseRequired) {
-            totalCost += merchandiseCost;
-        }
-
-        return totalCost;
+    
+    public void calculateEventCost() {
+        merchandiseCost = calculateEventCostObject.calculateEventCost() + (calculateEventCostObject.calculateEventCost() * 0.3);
     }
 
     @Override
     public String toString() {
-        return "Music Concert Event Details:\n" +
+        return "Music Concert Event Details: " +"\n"+
                 "Merchandise Required: " + merchandiseRequired + "\n" +
-                "Merchandise Cost: $" + merchandiseCost + "\n" +
-                "Total Event Cost: $" + calculateEventCost() + "\n";
+                "Merchandise Cost: $" + merchandiseCost;
     }
 }
