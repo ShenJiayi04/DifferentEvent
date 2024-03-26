@@ -1,11 +1,19 @@
-public class  ConferenceEvent extends Event {
-    //private boolean breakfastRequired;
-    private double breakfastCost;
-    //private boolean lunchRequired;
-    private double lunchCost;
-    //private boolean dinnerRequired;
-    private double dinnerCost;
-    private double conferenceEventCost;
+public class ConferenceEvent {
+    public  boolean breakfastRequired;
+    public double breakfastCost;
+    public  boolean lunchRequired;
+    public double lunchCost;
+    public  boolean dinnerRequired;
+    public double dinnerCost;
+    public double conferenceEventCost;
+    public String eventID;
+    public String eventName;
+    public String eventLocation;
+    public String eventPointOfContact;
+    private CalculateEventCostClass calculateEventCostObject;
+    private int totalEventDays;
+    private int totalParticipants;
+
 
     
 
@@ -37,27 +45,98 @@ public class  ConferenceEvent extends Event {
        this.dinnerCost = dinnerCost;
    }
 
-    public ConferenceEvent(String eventID,String eventName,String eventLocation,String pointOfContact,int totalParticipants,int totalEventDays,double eventCost,double breakfastCost,double lunchCost,double dinnerCost){
-        super(eventID,eventName,eventLocation,pointOfContact,eventCost,totalParticipants,totalEventDays);
+
+   
+    public boolean isBreakfastRequired() {
+    return breakfastRequired;
+}
+
+public void setBreakfastRequired(boolean breakfastRequired) {
+    this.breakfastRequired = breakfastRequired;
+}
+
+public boolean isLunchRequired() {
+    return lunchRequired;
+}
+
+public void setLunchRequired(boolean lunchRequired) {
+    this.lunchRequired = lunchRequired;
+}
+
+public boolean isDinnerRequired() {
+    return dinnerRequired;
+}
+
+public void setDinnerRequired(boolean dinnerRequired) {
+    this.dinnerRequired = dinnerRequired;
+}
+
+public double getConferenceEventCost() {
+    return conferenceEventCost;
+}
+
+public void setConferenceEventCost(double conferenceEventCost) {
+    this.conferenceEventCost = conferenceEventCost;
+}
+
+public String getEventName(){
+    return eventName;
+}
+
+public void setEventName(String eventName){
+    this.eventName=eventName;
+}
+
+public String getEventID(){
+    return eventID;
+}
+
+public void setEventID(String eventID){
+    this.eventID=eventID;
+}
+
+public String getEventLocation(){
+    return eventLocation;
+}
+
+public void setEventLocation(String eventLocation){
+    this.eventLocation=eventLocation;
+}
+
+public String getEventPointOfContact(){
+    return eventPointOfContact;
+}
+
+public void setEventPointOfContact(String eventPointOfContact){
+    this.eventPointOfContact=eventPointOfContact;
+}
+
+
+    public ConferenceEvent(String eventID,String eventName,String eventLocation,String pointOfContact,double eventCost,int totalParticipants,int totalEventDays,boolean breakfastRequired, double breakfastCost, boolean lunchRequired, double lunchCost,boolean dinnerRequired, double dinnerCost){
+        //super(eventID,eventName,eventLocation,pointOfContact,eventCost,totalParticipants,totalEventDays);
+        this.calculateEventCostObject = new CalculateEventCostClass();
+        this.breakfastRequired = breakfastRequired;
+        this.dinnerRequired = dinnerRequired;
+        this.lunchRequired = lunchRequired;
         this.breakfastCost=breakfastCost;
         this.lunchCost=lunchCost;
         this.dinnerCost=dinnerCost;
     }
 
-    @Override
-    public  void calculateEventCost(){
-        conferenceEventCost = getEventCost()+((getBreakfastCost()+getLunchCost()+getDinnerCost())*getTotalParticipants()*getTotalEventDays());
+    
+    public void calculateEventCost(){
+        conferenceEventCost = calculateEventCostObject.calculateEventCost() + (calculateEventCostObject.calculateEventCost() * 0.3);
+
     }
     
 
     @Override
     public String toString(){
-        //String conferenceEventCost;
         return "Conference Event details: "+"\n"+
-        "Event ID: "+getEventID()+"\n"+
-        "Event Name: "+getEventName()+"\n"+
-        "Event Location: "+getEventLocation()+"\n"+
-        "Total participants: "+getTotalParticipants()+"\n"+
-        "Total Conference Cost: "+ conferenceEventCost;
+        "Event ID: "+eventID+"\n"+
+        "Event Name: "+eventName+"\n"+
+        "Event Location: "+eventLocation+"\n"+
+        "Total participants: "+totalParticipants+"\n"+
+        "Total conference Cost" + conferenceEventCost;
     }
 }
